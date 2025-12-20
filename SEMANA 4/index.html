@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacienda Ganadera | El ALISOF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">HACIENDA EL ALISOF</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section text-white text-center d-flex align-items-center" 
+            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/paisaje2.jpg');">
+        <div class="container">
+            <h1 class="display-3 fw-bold">Excelencia Ganadera y de Alta Genetica</h1>
+            <p class="lead">Tradición familiar con tecnología de vanguardia.</p>
+            <a href="#servicios" class="btn btn-primary btn-lg mt-3">Conocer más</a>
+        </div>
+    </header>
+
+    <main class="container my-5" id="servicios">
+        <h2 class="text-center mb-5 fw-bold">Nuestros Pilares</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm custom-card">
+                    <img src="assets/vaca1.jpg" class="card-img-top img-harmonized" alt="Vaca 1">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">Genética Premium</h3>
+                        <p class="card-text">Seleccionamos los mejores ejemplares para garantizar productos de alta calidad de esta manera entregamos productos de calidad premium.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm custom-card">
+                    <img src="assets/vaca2.jpg" class="card-img-top img-harmonized" alt="Vaca 2">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">Bienestar Animal</h3>
+                        <p class="card-text">Entorno libre de estrés y con cuidados veterinarios constantes, llevando un control estricto de la vida del animal.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm custom-card">
+                    <img src="assets/paisaje1.jpg" class="card-img-top img-harmonized" alt="Paisaje 1">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">Sostenibilidad</h3>
+                        <p class="card-text">Manejo responsable de los recursos naturales, ayudando a reforestar y sobre todo la conservación del suelo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="container text-center my-5 p-4 bg-light rounded" id="nosotros">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#infoExtra">
+            CONOCE MAS SOBRE NOSOTROS
+        </button>
+        <div class="collapse mt-3" id="infoExtra">
+            <div class="card card-body border-0 shadow-sm">
+                Contamos con tecnología de punta y procesos certificados para la mejor producción ganadera del país.
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5" id="contacto">
+        <div class="row justify-content-center">
+            <div class="col-md-6 border p-4 rounded shadow-sm bg-white">
+                <h2 class="text-center mb-4">Contacto</h2>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mensaje</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p class="mb-0">© 2025 Hacienda El Alisof - Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

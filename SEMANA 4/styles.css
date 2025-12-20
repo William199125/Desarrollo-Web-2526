@@ -1,0 +1,47 @@
+/* Altura y ajuste del Header */
+.hero-section {
+    height: 60vh;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* ARMONÍA: Todas las fotos de las tarjetas del mismo tamaño */
+.img-harmonized {
+    height: 250px; /* Altura fija */
+    object-fit: cover; /* Recorta la imagen para que llene el espacio sin estirarse */
+    width: 100%;
+}
+
+/* Estilo del botón (Naranja solicitado) */
+.btn-primary {
+    background-color: #ffb833 !important;
+    border-color: #ff5733 !important;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    background-color: #e64a19 !important;
+}
+
+/* Animación en las tarjetas */
+.custom-card {
+    transition: transform 0.3s ease;
+    border: none;
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+}
+
+/* Media Query para móviles */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 40vh;
+    }
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+} 
