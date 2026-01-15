@@ -1,0 +1,107 @@
+/* Estilos Generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Para que el padding no afecte el ancho */
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+/* Clases para validación dinámica */
+input.error {
+    border-color: #e74c3c; /* Rojo */
+}
+
+input.success {
+    border-color: #2ecc71; /* Verde */
+}
+
+/* Mensajes de error */
+.error-msg {
+    display: none; /* Oculto por defecto */
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.error-msg.visible {
+    display: block;
+}
+
+/* Botones */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#btnSubmit {
+    background-color: #3498db;
+    color: white;
+}
+
+#btnSubmit:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+#btnSubmit:hover:not(:disabled) {
+    background-color: #2980b9;
+}
+
+#btnReset {
+    background-color: #95a5a6;
+    color: white;
+}
+
+#btnReset:hover {
+    background-color: #7f8c8d;
+}
