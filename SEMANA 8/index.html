@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea Semana 8 - William Zapata</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">William Zapata - TICS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4" id="inicio">
+        <h1 class="text-center mb-4">Bienvenido a mi Proyecto de Bootstrap</h1>
+        
+        <div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://placehold.co/1200x400/007bff/ffffff?text=Tecnología+e+Innovación" class="d-block w-100" alt="Slide 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://placehold.co/1200x400/6610f2/ffffff?text=Desarrollo+Web+TICS" class="d-block w-100" alt="Slide 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://placehold.co/1200x400/28a745/ffffff?text=Bootstrap+y+JavaScript" class="d-block w-100" alt="Slide 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div class="text-center mb-5">
+            <h3>Prueba de Interactividad</h3>
+            <p>Haz clic en el botón para ver la función JS:</p>
+            <button id="btnAlerta" class="btn btn-warning btn-lg">¡Saludar al Usuario!</button>
+        </div>
+
+        <div id="productos" class="mb-5">
+            <h2 class="text-primary mb-3">Lista de Productos (Ficticios)</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Laptop Gamer X1</td>
+                            <td>Computación</td>
+                            <td>$1200</td>
+                            <td><span class="badge bg-success">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mouse Inalámbrico</td>
+                            <td>Accesorios</td>
+                            <td>$25</td>
+                            <td><span class="badge bg-warning text-dark">Pocos</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Monitor 24"</td>
+                            <td>Computación</td>
+                            <td>$180</td>
+                            <td><span class="badge bg-danger">Agotado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="contacto" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <h2 class="text-center mb-4">Contáctame</h2>
+                <div class="card p-4 shadow-sm">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ej: William Zapata">
+                            <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
+                            <div class="invalid-feedback">Ingresa un correo válido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="3"></textarea>
+                            <div class="invalid-feedback">El mensaje no puede estar vacío.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Enviar Mensaje</button>
+                    </form>
+                    <div id="mensajeExito" class="alert alert-success mt-3 d-none" role="alert">
+                        ¡Mensaje enviado correctamente! Gracias por contactarnos.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2024 William Zapata - Estudiante de TICS.</p>
+        <small>Proyecto de la Semana 8</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

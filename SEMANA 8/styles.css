@@ -1,0 +1,23 @@
+/* Personalización del cuerpo */
+body {
+    background-color: #f8f9fa; /* Un gris muy suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Personalización propia requerida en la tarea: Títulos */
+h1, h2 {
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Efecto personal en la tabla */
+.table-hover tbody tr:hover {
+    background-color: #e2e6ea;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilo extra para el footer */
+footer {
+    border-top: 5px solid #0d6efd; /* Borde azul superior en el footer */
+} 
