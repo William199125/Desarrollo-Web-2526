@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}La Estación{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/">Inicio</a> | 
+        <a href="/productos">Nuestras Vías (Productos)</a>
+    </nav>
+    <hr>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <hr>
+    <footer>
+        <p>&copy; 2024 La Estación de los Detalles - Estudiante de TICs</p>
+    </footer>
+</body>
+</html> 
