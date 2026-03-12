@@ -1,0 +1,56 @@
+[
+    {
+        "id": null,
+        "nombre": "Desayuno Sorpresa Personalizado",
+        "cantidad": 10,
+        "precio": 25.0
+    },
+    {
+        "id": null,
+        "nombre": "Arreglo Floral Premium",
+        "cantidad": 5,
+        "precio": 45.5
+    },
+    {
+        "id": null,
+        "nombre": "Caja de Bombones Artesanales",
+        "cantidad": 20,
+        "precio": 12.0
+    },
+    {
+        "id": null,
+        "nombre": "Desayuno Sorpresa Personalizado",
+        "cantidad": 10,
+        "precio": 25.0
+    },
+    {
+        "id": null,
+        "nombre": "Arreglo Floral Premium",
+        "cantidad": 5,
+        "precio": 45.5
+    },
+    {
+        "id": null,
+        "nombre": "Caja de Bombones Artesanales",
+        "cantidad": 20,
+        "precio": 12.0
+    },
+    {
+        "id": null,
+        "nombre": "Desayuno Sorpresa Personalizado",
+        "cantidad": 10,
+        "precio": 25.0
+    },
+    {
+        "id": null,
+        "nombre": "Arreglo Floral Premium",
+        "cantidad": 5,
+        "precio": 45.5
+    },
+    {
+        "id": null,
+        "nombre": "Caja de Bombones Artesanales",
+        "cantidad": 20,
+        "precio": 12.0
+    }
+]
