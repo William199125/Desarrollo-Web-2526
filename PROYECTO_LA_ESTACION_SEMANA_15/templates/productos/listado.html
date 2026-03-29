@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario - La Estación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_estacion.css') }}">
+</head>
+<body>
+    <header class="estacion-header mb-4 text-center">
+        <h1 style="color: var(--color-principal);">La Estación de los Detalles</h1>
+    </header>
+
+    <div class="container">
+        <div class="card card-estacion shadow-sm p-4 bg-white">
+            <div class="d-flex justify-content-between mb-4">
+                <h3>Inventario de Detalles</h3>
+                <div>
+                    <a href="{{ url_for('crear_producto') }}" class="btn btn-success">+ Nuevo</a>
+                    <a href="{{ url_for('generar_reporte') }}" class="btn btn-danger">PDF</a>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in productos %}
+                    <tr>
+                        <td>{{ p.nombre_producto }}</td>
+                        <td>${{ p.precio }}</td>
+                        <td>{{ p.stock }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario | La Estación de los Detalles</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>Inventario: La Estación de los Detalles</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+        {% for prod in productos %}
+        <tr>
+            <td>{{ prod.nombre }}</td>
+            <td>{{ prod.cantidad }}</td>
+            <td>${{ prod.precio }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/agregar_test">Agregar Productos de Prueba</a>
+</body>
+</html>

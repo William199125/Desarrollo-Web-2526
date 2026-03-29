@@ -1,0 +1,26 @@
+:root {
+    --color-principal: #E67E22; /* Naranja Cálido */
+    --color-fondo: #FDF2E9; 
+    --color-texto: #2C3E50;
+}
+
+body { background-color: var(--color-fondo); font-family: 'Poppins', sans-serif; }
+
+.estacion-header { 
+    background-color: white; 
+    border-bottom: 3px solid var(--color-principal); 
+    padding: 20px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}
+
+.card-estacion { border: none; border-radius: 15px; }
+
+.btn-estacion-primario { 
+    background-color: var(--color-principal); 
+    color: white; 
+    border-radius: 8px; 
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn-estacion-primario:hover { background-color: #D35400; color: white; }
