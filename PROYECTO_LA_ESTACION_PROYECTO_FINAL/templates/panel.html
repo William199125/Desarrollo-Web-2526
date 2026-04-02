@@ -2,66 +2,270 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - La Estación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f6; overflow-x: hidden; }
+        /* Sidebar Estilo SaaS */
+        .sidebar { background-color: #1e293b; min-height: 100vh; color: #cbd5e1; transition: all 0.3s; }
+        .sidebar .nav-link { color: #cbd5e1; border-radius: 8px; margin-bottom: 5px; font-weight: 500; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background-color: #3b82f6; color: white; }
+        .sidebar i { width: 25px; }
+        /* Tarjetas (Cards) Modernas */
+        .card-metric { border: none; border-radius: 15px; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-metric:hover { transform: translateY(-5px); }
+        .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        /* Botones y UI */
+        .btn-gold { background-color: #d4af37; color: white; font-weight: 600; border: none; }
+        .btn-gold:hover { background-color: #bfa033; color: white; }
+    </style>
 </head>
 <body>
-    <div class="dashboard-container d-flex">
-        <nav class="sidebar bg-white border-end vh-100" style="width: 260px; position: fixed;">
-            <div class="p-4 border-bottom text-center">
-                <h4 class="m-0 text-warning fw-bold"><i class="bi bi-gift"></i> La Estación</h4>
-            </div>
-            <div class="list-group list-group-flush mt-3">
-                <a href="{{ url_for('panel') }}" class="list-group-item list-group-item-action active border-0"><i class="bi bi-speedometer2 me-2"></i> Panel Principal</a>
-                <a href="{{ url_for('listar_productos') }}" class="list-group-item list-group-item-action border-0"><i class="bi bi-box-seam me-2"></i> Inventario</a>
-                <a href="{{ url_for('registro_usuario') }}" class="list-group-item list-group-item-action border-0"><i class="bi bi-person-plus me-2"></i> Usuarios</a>
-                <a href="{{ url_for('generar_reporte') }}" class="list-group-item list-group-item-action border-0"><i class="bi bi-file-pdf me-2"></i> Reportes PDF</a>
-                <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action text-danger mt-5 border-0"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</a>
-            </div>
-        </nav>
 
-        <main class="flex-grow-1 bg-light" style="margin-left: 260px;">
-            <div class="p-4 bg-white border-bottom d-flex justify-content-between align-items-center">
-                <h5 class="m-0 text-muted">Gestión de Detalles</h5>
-                <span class="fw-bold"><i class="bi bi-person-circle"></i> {{ current_user.nombre }}</span>
-            </div>
+<div class="d-flex">
+    <div class="sidebar p-3 d-flex flex-column" style="width: 260px;">
+        <h3 class="text-white fw-bold mb-4 text-center mt-2"><i class="fas fa-gift text-warning"></i> La Estación</h3>
+        <ul class="nav flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{{ url_for('panel') }}" class="nav-link active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('listar_clientes') }}" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('listar_productos') }}" class="nav-link"><i class="fas fa-box-open"></i> Inventario</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('registrar_venta') }}" class="nav-link"><i class="fas fa-shopping-cart"></i> Ventas</a>
+            </li>
+        </ul>
+        <hr class="text-secondary">
+        <a href="{{ url_for('logout') }}" class="nav-link text-danger fw-bold"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
 
-            <div class="p-5">
-                <h2 class="mb-4">Resumen del Negocio</h2>
-                <div class="card shadow-sm border-0">
+    <div class="flex-grow-1 p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <h2 class="fw-bold text-dark m-0">Resumen General</h2>
+            <div>
+                <button class="btn btn-gold shadow-sm me-2" data-bs-toggle="modal" data-bs-target="#modalReportes">
+                    <i class="fas fa-file-pdf"></i> Generar Reportes PDF
+                </button>
+                <span class="text-muted fw-bold"><i class="fas fa-user-circle fs-4 align-middle me-1"></i> Admin</span>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card card-metric bg-white p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold fs-6">Ingresos Totales</p>
+                            <h3 class="fw-bold text-dark mb-0" id="met-ingresos">$0.00</h3>
+                        </div>
+                        <div class="icon-box bg-success text-white bg-opacity-75"><i class="fas fa-dollar-sign"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-metric bg-white p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold fs-6">Ventas Realizadas</p>
+                            <h3 class="fw-bold text-dark mb-0" id="met-ventas">0</h3>
+                        </div>
+                        <div class="icon-box bg-primary text-white bg-opacity-75"><i class="fas fa-shopping-bag"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-metric bg-white p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold fs-6">Stock Activo</p>
+                            <h3 class="fw-bold text-dark mb-0" id="met-productos">0</h3>
+                        </div>
+                        <div class="icon-box bg-warning text-dark bg-opacity-75"><i class="fas fa-boxes"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-metric bg-white p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-muted mb-1 fw-bold fs-6">Clientes Registrados</p>
+                            <h3 class="fw-bold text-dark mb-0" id="met-clientes">0</h3>
+                        </div>
+                        <div class="icon-box bg-info text-white bg-opacity-75"><i class="fas fa-users"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                        <h5 class="fw-bold">Rendimiento de Ventas</h5>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title text-warning"><i class="bi bi-bar-chart-fill"></i> Niveles de Stock</h5>
-                        <div style="height: 350px;">
-                            <canvas id="graficoStock" data-labels='{{ labels|tojson }}' data-values='{{ values|tojson }}'></canvas>
+                        <canvas id="ventasChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                        <h5 class="fw-bold">Actividad Reciente</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center border-bottom pb-3 mb-3">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3"><i class="fas fa-check"></i></div>
+                            <div><p class="mb-0 fw-bold">Sistema Actualizado</p><small class="text-muted">Versión Profesional V2</small></div>
+                        </div>
+                        <div class="d-flex align-items-center border-bottom pb-3 mb-3">
+                            <div class="bg-success bg-opacity-10 text-success rounded-circle p-2 me-3"><i class="fas fa-file-pdf"></i></div>
+                            <div><p class="mb-0 fw-bold">Módulo PDF Listo</p><small class="text-muted">Reportes habilitados</small></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const canvas = document.getElementById('graficoStock');
-        // Parseamos los datos limpios sin errores de sintaxis
-        const labels = JSON.parse(canvas.dataset.labels);
-        const values = JSON.parse(canvas.dataset.values);
+<div class="modal fade" id="modalReportes" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold"><i class="fas fa-print me-2"></i> Centro de Reportes</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="text-muted">Selecciona el módulo del cual deseas generar un documento PDF oficial.</p>
+                
+                <div class="d-grid gap-3">
+                    <button onclick="generarPDF('ventas')" class="btn btn-outline-success text-start p-3 fw-bold shadow-sm">
+                        <i class="fas fa-chart-line fs-4 align-middle me-3"></i> Reporte Histórico de Ventas
+                    </button>
+                    <button onclick="generarPDF('productos')" class="btn btn-outline-warning text-dark text-start p-3 fw-bold shadow-sm">
+                        <i class="fas fa-boxes fs-4 align-middle me-3"></i> Reporte de Inventario Actual
+                    </button>
+                    <button onclick="generarPDF('clientes')" class="btn btn-outline-info text-start p-3 fw-bold shadow-sm">
+                        <i class="fas fa-users fs-4 align-middle me-3"></i> Directorio de Clientes Activos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        new Chart(canvas, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Unidades Disponibles',
-                    data: values,
-                    backgroundColor: '#A67C00',
-                    borderRadius: 5
-                }]
-            },
-            options: { responsive: true, maintainAspectRatio: false }
-        });
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+    // 1. CARGAR DATOS DEL DASHBOARD
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/api/dashboard')
+            .then(response => response.json())
+            .then(data => {
+                // Actualizar Tarjetas
+                document.getElementById('met-clientes').innerText = data.clientes;
+                document.getElementById('met-productos').innerText = data.productos;
+                document.getElementById('met-ventas').innerText = data.ventas;
+                document.getElementById('met-ingresos').innerText = "$" + parseFloat(data.ingresos).toFixed(2);
+
+                // Dibujar Gráfico
+                const ctx = document.getElementById('ventasChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'], // Reemplazar con data.grafico.mes si hay datos
+                        datasets: [{
+                            label: 'Ingresos Mensuales ($)',
+                            data: [120, 190, 300, 500, 200, 300], // Reemplazar con data.grafico.total_mes
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4 // Curvas suaves
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            });
+    });
+
+    // 2. GENERADOR DE REPORTES PDF PROFESIONALES
+    function generarPDF(tipo) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Cargar datos desde el Backend
+        fetch(`/api/reportes/${tipo}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.length === 0) {
+                    alert("No hay datos suficientes para generar este reporte.");
+                    return;
+                }
+
+                // Diseño del Encabezado del PDF
+                doc.setFontSize(22);
+                doc.setTextColor(41, 128, 185); // Azul corporativo
+                doc.text("LA ESTACIÓN", 14, 20);
+                
+                doc.setFontSize(14);
+                doc.setTextColor(52, 73, 94);
+                doc.text(`Reporte Oficial de ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`, 14, 30);
+                
+                doc.setFontSize(10);
+                doc.setTextColor(149, 165, 166);
+                const fecha = new Date().toLocaleDateString();
+                doc.text(`Generado el: ${fecha}`, 14, 38);
+
+                // Preparar columnas y filas según el tipo
+                let columnas = [];
+                let filas = [];
+
+                if(tipo === 'clientes') {
+                    columnas = ["ID", "Nombre", "Cédula/RUC", "Teléfono"];
+                    filas = data.map(item => [item.id_cliente, item.nombre, item.cedula, item.telefono]);
+                } else if (tipo === 'productos') {
+                    columnas = ["ID", "Producto", "Categoría", "Stock Disp.", "Precio Unit."];
+                    filas = data.map(item => [item.id_producto, item.nombre, item.categoria, item.stock, `$${item.precio}`]);
+                } else if (tipo === 'ventas') {
+                    columnas = ["ID", "Fecha", "Cliente", "Producto", "Cant.", "Total"];
+                    filas = data.map(item => [item.id_venta, item.fecha, item.cliente, item.producto, item.cantidad, `$${item.total}`]);
+                }
+
+                // Dibujar la Tabla con AutoTable
+                doc.autoTable({
+                    startY: 45,
+                    head: [columnas],
+                    body: filas,
+                    theme: 'striped',
+                    headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255] },
+                    styles: { font: 'helvetica', fontSize: 10 },
+                    alternateRowStyles: { fillColor: [245, 245, 245] }
+                });
+
+                // Descargar el archivo
+                doc.save(`Reporte_LaEstacion_${tipo}_${fecha}.pdf`);
+                
+                // Cerrar modal automáticamente
+                var myModalEl = document.getElementById('modalReportes');
+                var modal = bootstrap.Modal.getInstance(myModalEl);
+                modal.hide();
+            })
+            .catch(error => console.error('Error generando PDF:', error));
+    }
+</script>
+
 </body>
 </html>

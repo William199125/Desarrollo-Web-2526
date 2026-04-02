@@ -4,61 +4,65 @@
     <meta charset="UTF-8">
     <title>Inventario - La Estación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-dark bg-dark px-4 shadow-sm">
-        <a class="navbar-brand" href="{{ url_for('panel') }}"><i class="bi bi-arrow-left"></i> Volver al Panel</a>
-        <span class="text-white"><i class="bi bi-box-seam"></i> Inventario de Detalles</span>
-    </nav>
-
     <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Gestión de Productos</h2>
-            <a href="{{ url_for('crear_producto') }}" class="btn btn-warning fw-bold shadow-sm" style="background-color: #A67C00; color: white; border: none;">
-                <i class="bi bi-plus-circle"></i> Nuevo Detalle
-            </a>
-        </div>
-
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-0">
-                <table class="table table-hover m-0 align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre del Producto</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for p in productos %}
-                        <tr>
-                            <td>{{ p.id_producto }}</td>
-                            <td class="fw-bold">{{ p.nombre }}</td>
-                            <td>${{ p.precio }}</td>
-                            <td>
-                                <span class="badge {{ 'bg-danger' if p.stock < 5 else 'bg-success' }}">{{ p.stock }}</span>
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ url_for('editar_producto', id=p.id_producto) }}" class="btn btn-sm btn-outline-warning">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </a>
-                                    <form action="{{ url_for('eliminar_producto', id=p.id_producto) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este detalle?');">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i> Eliminar
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="d-flex justify-content-between mb-4">
+            <h2 class="fw-bold text-primary">Inventario de Productos</h2>
+            <div>
+                <button class="btn btn-warning fw-bold text-white" data-bs-toggle="modal" data-bs-target="#addProd">+ Nuevo</button>
+                <a href="{{ url_for('panel') }}" class="btn btn-secondary fw-bold">Volver</a>
             </div>
         </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for cat, msg in messages %}
+                    <div class="alert alert-{{ cat }}">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <table class="table table-white shadow-sm rounded">
+            <thead class="table-dark">
+                <tr><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                <tr>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.categoria }}</td>
+                    <td>${{ p.precio }}</td>
+                    <td><span class="badge bg-info">{{ p.stock }}</span></td>
+                    <td>
+                        <a href="{{ url_for('editar_producto', id=p.id_producto) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <form action="{{ url_for('eliminar_producto', id=p.id_producto) }}" method="POST" class="d-inline">
+                            <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+    <div class="modal fade" id="addProd" tabindex="-1">
+        <div class="modal-dialog">
+            <form action="{{ url_for('crear_producto') }}" method="POST" class="modal-content">
+                <div class="modal-header bg-primary text-white"><h5 class="modal-title">Nuevo Producto</h5></div>
+                <div class="modal-body">
+                    <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre" required>
+                    <input type="text" name="categoria" class="form-control mb-2" placeholder="Categoría">
+                    <input type="number" step="0.01" name="precio" class="form-control mb-2" placeholder="Precio" required>
+                    <input type="number" name="stock" class="form-control mb-2" placeholder="Stock" required>
+                    <textarea name="descripcion" class="form-control" placeholder="Descripción"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

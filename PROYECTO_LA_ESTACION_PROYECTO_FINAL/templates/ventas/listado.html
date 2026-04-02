@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Ventas - La Estación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold" style="color: #0d6efd;"><i class="fas fa-file-invoice-dollar me-2"></i>Historial de Ventas</h2>
+            <div>
+                <a href="{{ url_for('registrar_venta') }}" class="btn text-white fw-bold shadow-sm" style="background-color: #B8860B;">
+                    <i class="fas fa-plus me-1"></i> Nueva Venta
+                </a>
+                <a href="{{ url_for('panel') }}" class="btn btn-outline-secondary fw-bold ms-2"><i class="fas fa-arrow-left me-1"></i>Volver al Panel</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} fw-bold shadow-sm">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-0">
+                <table class="table table-hover m-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID Venta</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Cant.</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in ventas %}
+                        <tr>
+                            <td class="fw-bold">#{{ v.id_venta }}</td>
+                            <td>{{ v.fecha }}</td>
+                            <td>{{ v.cliente }}</td>
+                            <td class="text-secondary fw-bold">{{ v.producto }}</td>
+                            <td>{{ v.cantidad }}</td>
+                            <td class="text-success fw-bold">${{ v.total }}</td>
+                            <td>
+                                <form action="{{ url_for('eliminar_venta', id=v.id_venta) }}" method="POST" onsubmit="return confirm('¿Anular venta? El stock se devolverá al inventario automáticamente.');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger fw-bold"><i class="fas fa-ban me-1"></i>Anular</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-muted fw-bold">No se han registrado ventas en el sistema.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
